@@ -85,8 +85,8 @@ export function handleAnswer(answer) {
   }
 
   // 10. Back to home page
-  if (command === "close" || command === "-c") {
-    rl.close();
+  if (command === "back" || command === "-b") {
+    homePage();
     return;
   }
 
