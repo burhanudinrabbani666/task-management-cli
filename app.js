@@ -8,9 +8,9 @@ import { viewAllTask } from "./src/features/viewTask.js";
 export const rl = readline.createInterface({ input, output });
 
 async function usingFeatures(answer) {
-  if (answer === "3") return rl.close();
   if (answer === "1") addNewTask();
   if (answer === "2") viewAllTask();
+  if (answer === "3") return rl.close();
 }
 
 export async function homePageFeatures() {

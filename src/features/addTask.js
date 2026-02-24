@@ -3,6 +3,14 @@ import fs from "fs";
 import { getDataFromFile } from "../services/getDataFromFile.js";
 import { homePageFeatures, rl } from "../../app.js";
 
+function displaySuccesfullyMessage(newTaskFromUser) {
+  // Display information
+  console.log(newTaskFromUser, "Succesfully added 😃 \n");
+
+  // Display homepageFeatures
+  homePageFeatures();
+}
+
 export async function addNewTask() {
   const newTaskFromUser = await rl.question("add new Task: ");
   const task = newTaskFromUser.trim();
@@ -23,24 +31,27 @@ export async function addNewTask() {
           return;
         }
       });
+
+      displaySuccesfullyMessage(newTaskFromUser);
+      return;
     }
 
     if (error) {
       console.log(error);
       return;
     }
+    const taskDataArray = JSON.parse(data);
 
     // Create new Task object
-
     const newTask = {
-      id: data.length === 0 ? 1 : data.at(-1).id + 1,
+      id: taskDataArray.length === 0 ? 1 : data.at(-1).id + 1,
       taskTitle: task,
       status: false,
       createdAt: new Date().toLocaleString("en-Us"),
     };
 
     // Push
-    data.push(newTask);
+    taskDataArray.push(newTask);
 
     // Rewirte Task
     fs.writeFile("taskData.json", JSON.stringify(data), (error) => {
@@ -50,10 +61,6 @@ export async function addNewTask() {
       }
     });
 
-    // Display information
-    console.log(newTaskFromUser, "Succesfully added 😃 \n");
-
-    // Display homepageFeatures
-    homePageFeatures();
+    displaySuccesfullyMessage(newTaskFromUser);
   });
 }
