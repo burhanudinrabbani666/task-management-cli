@@ -40,6 +40,7 @@ export async function addNewTask() {
       console.log(error);
       return;
     }
+
     const taskDataArray = JSON.parse(data);
 
     // Create new Task object
@@ -53,8 +54,10 @@ export async function addNewTask() {
     // Push
     taskDataArray.push(newTask);
 
+    console.log(taskDataArray);
+
     // Rewirte Task
-    fs.writeFile("taskData.json", JSON.stringify(data), (error) => {
+    fs.writeFile("taskData.json", JSON.stringify(taskDataArray), (error) => {
       if (error) {
         console.log(error);
         return;

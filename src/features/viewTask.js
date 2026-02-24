@@ -15,15 +15,18 @@ const VIEW_ALL_TASK_FEATURES = [
 function handleAnswerViewAllTaskPage(answer) {}
 
 export async function viewAllTask() {
-  const task = await getDataFromFile(({ data, error }) => {
-    if (error?.code === "ENOENT") {
+  getDataFromFile(({ data, error }) => {
+    if (
+      error?.code === "ENOENT" ||
+      JSON.parse(data).length === 0 ||
+      !JSON.parse(data)
+    ) {
       homePage();
-
       return;
     }
 
-    return data;
-  });
+    const taskToRender = JSON.parse(data);
 
-  if (!task) return;
+    renderTable(taskToRender);
+  });
 }
