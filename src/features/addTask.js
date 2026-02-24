@@ -1,7 +1,8 @@
 import fs from "fs";
 
 import { getDataFromFile } from "../services/getDataFromFile.js";
-import { homePage, rl } from "../../app.js";
+import { homePage } from "../../app.js";
+import { renderSpace } from "../utils/config.js";
 
 function displaySuccesfullyMessage(newTaskFromUser) {
   // Display information
@@ -35,6 +36,7 @@ export async function addNewTask(taskName) {
         }
       });
 
+      renderSpace();
       displaySuccesfullyMessage(task);
       return;
     }
@@ -65,6 +67,7 @@ export async function addNewTask(taskName) {
       }
     });
 
+    renderSpace();
     displaySuccesfullyMessage(task);
   });
 }

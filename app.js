@@ -9,9 +9,9 @@ import { searchTask } from "./src/features/searchTask.js";
 export const rl = readline.createInterface({ input, output });
 
 const HOME_PAGE_FEATURES = [
-  { id: 1, feature: "add [task name] OR a [task name]" },
+  { id: 1, feature: "add [task name] OR a [task-name]" },
   { id: 2, feature: "view OR v" },
-  { id: 3, feature: "search [task name] OR s [task name]" },
+  { id: 3, feature: "search [task name] OR s [task-name]" },
   { id: 4, feature: "delete-all OR da" },
   { id: 5, feature: "close OR c" },
 ];
@@ -23,16 +23,35 @@ async function handleAnswerHomePage(answerArray) {
   }
 
   const command = answerArray[0];
-  const taskName = answerArray[1];
+  const taskNameRaw = answerArray[1];
+  const taskName = taskNameRaw?.trim().split("-").join(" ");
 
-  if (command === "add" || command === "a") addNewTask(taskName);
-  if (command === "view" || command === "v") viewAllTask();
-  if (command === "search" || command === "s") searchTask(taskName);
-  if (command === "delete-all" || command === "da") viewAllTask();
-  if (command === "close" || command === "c") rl.close();
-  else {
-    console.log("input not valid");
+  if (command === "add" || command === "a") {
+    addNewTask(taskName);
+    return;
   }
+
+  if (command === "view" || command === "v") {
+    viewAllTask();
+    return;
+  }
+
+  if (command === "search" || command === "s") {
+    searchTask(taskName);
+    return;
+  }
+
+  if (command === "delete-all" || command === "da") {
+    viewAllTask();
+    return;
+  }
+
+  if (command === "close" || command === "c") {
+    rl.close();
+    return;
+  }
+
+  console.log("input not valid");
 }
 
 export async function homePage() {

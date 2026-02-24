@@ -33,6 +33,5 @@ export function renderTable(tasksToRender) {
 
   table("header");
   table("line");
-
   tasksToRender.forEach((task) => table("", task));
 }
