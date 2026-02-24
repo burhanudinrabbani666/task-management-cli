@@ -7,6 +7,8 @@ import { viewAllTask } from "./src/features/viewTask.js";
 import { searchTask } from "./src/features/searchTask.js";
 import { renderSpace } from "./src/utils/config.js";
 import { deleteAllTask } from "./src/features/deleteAllTask.js";
+import { getDataFromFile } from "./src/services/getDataFromFile.js";
+import { renderTable } from "./src/utils/table.js";
 
 export const rl = readline.createInterface({ input, output });
 
@@ -34,6 +36,7 @@ async function handleAnswerHomePage(answerArray) {
   }
 
   if (command === "view" || command === "v") {
+    console.clear();
     viewAllTask();
     return;
   }
@@ -57,17 +60,26 @@ async function handleAnswerHomePage(answerArray) {
 }
 
 export async function homePage(message) {
-  renderSpace();
+  console.clear();
+  message && console.log(`${message} \n`);
 
-  message && console.log(message);
+  getDataFromFile(async ({ data, error }) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
 
-  renderFeatures(HOME_PAGE_FEATURES);
-  const answer = await rl.question("What do you want to do? ");
-  const answerArray = answer.trim().split(" ");
+    const taskData = JSON.parse(data); // error after adding new task
+    renderTable(taskData);
 
-  handleAnswerHomePage(answerArray);
+    renderFeatures(HOME_PAGE_FEATURES);
+    const answer = await rl.question("What do you want to do? ");
+    const answerArray = answer.trim().split(" ");
 
-  return;
+    handleAnswerHomePage(answerArray);
+
+    return;
+  });
 }
 
 async function app() {

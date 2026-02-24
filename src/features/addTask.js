@@ -4,14 +4,6 @@ import { getDataFromFile } from "../services/getDataFromFile.js";
 import { homePage } from "../../app.js";
 import { renderSpace } from "../utils/config.js";
 
-function displaySuccesfullyMessage(newTaskFromUser) {
-  // Display information
-  console.log(newTaskFromUser, "Succesfully added 😃 \n");
-
-  // Display homepageFeatures
-  homePage();
-}
-
 export async function addNewTask(taskName) {
   const task = taskName.trim();
 
@@ -36,8 +28,7 @@ export async function addNewTask(taskName) {
         }
       });
 
-      renderSpace();
-      displaySuccesfullyMessage(task);
+      homePage(`Successfully add ${task}`);
       return;
     }
 
@@ -65,10 +56,8 @@ export async function addNewTask(taskName) {
         console.log(error);
         return;
       }
-    });
 
-    renderSpace();
-    displaySuccesfullyMessage(task);
-    return;
+      homePage(`Successfully add ${task}`);
+    });
   });
 }

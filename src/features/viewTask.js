@@ -70,9 +70,8 @@ export async function handleAnswerViewAllTaskPage(answerArray) {
           homePage(`${taskDeleted.taskTitle} Succesfully deleted \n`);
           return;
         }
-
-        renderTable(JSON.parse(data));
       });
+      viewAllTask();
       return;
     });
 

@@ -1,5 +1,4 @@
 import { homePage } from "../../app.js";
-import { renderSpace } from "./config.js";
 
 function table(type = "", taskToRender) {
   if (type === "line") {
@@ -20,7 +19,7 @@ function table(type = "", taskToRender) {
 
   const { id, taskTitle, status, createdAt } = taskToRender;
   console.log(
-    `|${id.toString().padEnd(3, " ")}|${taskTitle.padEnd(25, " ")}|${(status ? "Completed" : "Not Completed").padEnd(20, " ")}|${createdAt.padEnd(29, " ")}|`,
+    `|${id.toString().padEnd(3, " ")}|${taskTitle.padEnd(25, " ")}|${(status ? "✅" : "❎").padEnd(19, " ")}|${createdAt.padEnd(29, " ")}|`,
   );
 }
 
@@ -32,7 +31,6 @@ export function renderTable(tasksToRender) {
     return;
   }
 
-  renderSpace();
   table("header");
   table("line");
   tasksToRender.forEach((task) => table("", task));
