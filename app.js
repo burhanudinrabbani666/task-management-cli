@@ -19,8 +19,16 @@ const HOME_PAGE_FEATURES = [
   { id: 8, feature: "close OR -c" },
 ];
 
-export async function renderHomepageFeatures() {
-  renderFeatures(HOME_PAGE_FEATURES);
+export async function renderHomepageFeatures(dataLength) {
+  let featuresToRender = HOME_PAGE_FEATURES;
+
+  if (dataLength === "empty") {
+    featuresToRender = HOME_PAGE_FEATURES.filter(
+      (feature) => feature.id === 1 || feature.id === 8,
+    );
+  }
+
+  renderFeatures(featuresToRender);
   const answer = await rl.question("What do you want to do? ");
   handleAnswer(answer);
 }
@@ -30,8 +38,10 @@ export async function homePage(message) {
   message && console.log(`${message} \n`);
 
   getDataFromFile(async ({ data, error }) => {
-    if (error?.code === "ENOENT") {
-      renderHomepageFeatures();
+    if (error?.code === "ENOENT" || JSON.parse(data).length === 0) {
+      console.log(JSON.parse(data));
+
+      renderHomepageFeatures("empty");
       return;
     }
 

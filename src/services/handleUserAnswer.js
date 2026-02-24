@@ -7,6 +7,7 @@ import { searchTask } from "../features/searchTask.js";
 import { viewAllTask } from "../features/viewTask.js";
 import { getDataFromFile } from "./getDataFromFile.js";
 import { detailTask } from "../features/detailTask.js";
+import { editTask } from "../features/editTask.js";
 
 export function handleAnswer(answer) {
   const answerArray = answer.split(" ");
@@ -57,13 +58,26 @@ export function handleAnswer(answer) {
 
   // 8. Edit data name by id
   if (command === "edit-name" || command === "-en") {
-    const id = Number(task);
-    const newName = answerArray.at(2);
+    console.clear();
 
+    const id = Number(task);
+    const dataItem = answerArray.at(2);
+
+    editTask("taskTitle", { id, dataItem });
     return;
   }
 
   // 9. Edit data Status by id
+  if (command === "edit-status" || command === "-es") {
+    console.clear();
+
+    const id = Number(task);
+    const dataItem = answerArray.at(2);
+
+    editTask("status", { id, dataItem });
+    return;
+  }
+
   // Search by name
   if (command === "search" || command === "-s") {
     searchTask(task);
@@ -71,6 +85,11 @@ export function handleAnswer(answer) {
   }
 
   // 10. Back to home page
+  if (command === "close" || command === "-c") {
+    rl.close();
+    return;
+  }
+
   // 11. Close app
   if (command === "close" || command === "-c") {
     rl.close();

@@ -28,13 +28,13 @@ export function detailTask(task) {
 
     const { id, taskTitle, status, createdAt } = taskToRender;
 
-    console.log(`${"id".padEnd(15, " ")}: `, id);
-    console.log(`${"taskTitle".padEnd(15, " ")}: `, taskTitle);
+    console.log(`${"ID".padEnd(15, " ")}: `, id);
+    console.log(`${"Task".padEnd(15, " ")}: `, taskTitle);
     console.log(
       `${"status".padEnd(15, " ")}: `,
       status ? "✅ Completed" : "❌ Not Completed ",
     );
-    console.log(`${"created at".padEnd(15, " ")}: `, createdAt);
+    console.log(`${"Created at".padEnd(15, " ")}: `, createdAt);
 
     renderFeatures(DETAIL_PAGE_FEATURES);
     const answer = await rl.question("What next: ");
