@@ -79,7 +79,7 @@ export async function handleAnswerViewAllTaskPage(answerArray) {
   }
 }
 
-export async function viewAllTask() {
+export async function viewAllTask(status) {
   getDataFromFile(async ({ data, error }) => {
     if (
       error?.code === "ENOENT" ||
@@ -91,8 +91,18 @@ export async function viewAllTask() {
       return;
     }
 
-    const taskToRender = JSON.parse(data);
-    renderTable(taskToRender);
+    const taskData = JSON.parse(data);
+    let tasksToRender = taskData;
+
+    if (status === "-vt") {
+      tasksToRender = taskData.filter((task) => task.status === true);
+    }
+
+    if (status === "-vf") {
+      tasksToRender = taskData.filter((task) => task.status === false);
+    }
+
+    renderTable(tasksToRender);
 
     renderFeatures(VIEW_ALL_TASK_FEATURES);
     const answer = await rl.question("What do you want to do? ");

@@ -24,7 +24,19 @@ export function handleAnswer(answer) {
   }
 
   // 3. view all completed task
+  if (command === "view-all-completed-task" || command === "-vt") {
+    console.clear();
+    viewAllTask("-vt");
+    return;
+  }
+
   // 4. view all not completed task
+  if (command === "view-all-completed-task" || command === "-vf") {
+    console.clear();
+    viewAllTask("-vf");
+    return;
+  }
+
   // 5. Detail task data
   // 6. Delete data by id
   // 7. Delete all data
