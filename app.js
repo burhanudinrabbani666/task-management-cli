@@ -4,6 +4,7 @@ import { stdin as input, stdout as output } from "node:process";
 import { renderFeatures } from "./src/home.js";
 import { addNewTask } from "./src/features/addTask.js";
 import { viewAllTask } from "./src/features/viewTask.js";
+import { searchTask } from "./src/features/searchTask.js";
 
 export const rl = readline.createInterface({ input, output });
 
@@ -24,31 +25,12 @@ async function handleAnswerHomePage(answerArray) {
   const command = answerArray[0];
   const taskName = answerArray[1];
 
-  console.log(command);
-
-  if (command === "add" || command === "a") {
-    addNewTask(taskName);
-    return;
-  }
-
-  if (command === "view" || command === "v") {
-    viewAllTask();
-    return;
-  }
-
-  if (command === "search" || command === "s") {
-    viewAllTask();
-    return;
-  }
-
-  if (command === "delete-all" || command === "da") {
-    viewAllTask();
-    return;
-  }
-
-  if (command === "close" || command === "c") {
-    rl.close();
-  } else {
+  if (command === "add" || command === "a") addNewTask(taskName);
+  if (command === "view" || command === "v") viewAllTask();
+  if (command === "search" || command === "s") searchTask(taskName);
+  if (command === "delete-all" || command === "da") viewAllTask();
+  if (command === "close" || command === "c") rl.close();
+  else {
     console.log("input not valid");
   }
 }

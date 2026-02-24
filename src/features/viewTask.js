@@ -6,7 +6,7 @@ import { homePage, rl } from "../../app.js";
 import { getDataFromFile } from "../services/getDataFromFile.js";
 import { error } from "console";
 
-const VIEW_ALL_TASK_FEATURES = [
+export const VIEW_ALL_TASK_FEATURES = [
   { id: 1, feature: "-edit [id]" },
   { id: 2, feature: "-delete [id]" },
   { id: 3, feature: "back" },
@@ -14,15 +14,13 @@ const VIEW_ALL_TASK_FEATURES = [
   { id: 5, feature: "help" },
 ];
 
-async function handleAnswerViewAllTaskPage(answerArray) {
+export async function handleAnswerViewAllTaskPage(answerArray) {
   if (answerArray.length > 3) {
     console.error("Input not valid");
   }
 
   const command = answerArray[0];
   const id = answerArray[1];
-
-  console.log(command, id);
 
   if (command === "-edit") {
   }
