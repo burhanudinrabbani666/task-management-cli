@@ -1,3 +1,5 @@
+import { homePage } from "../../app.js";
+
 function table(type = "", taskToRender) {
   if (type === "line") {
     console.log(
@@ -9,7 +11,7 @@ function table(type = "", taskToRender) {
 
   if (type === "header") {
     console.log(
-      `|${"No".toString().padEnd(3, " ")}|${"Tasks".padEnd(25, " ")}|${"Status".padEnd(20, " ")}|${"Created at".padEnd(29, " ")}|`,
+      `|${"Id".toString().padEnd(3, " ")}|${"Tasks".padEnd(25, " ")}|${"Status".padEnd(20, " ")}|${"Created at".padEnd(29, " ")}|`,
     );
 
     return;
@@ -22,6 +24,13 @@ function table(type = "", taskToRender) {
 }
 
 export function renderTable(tasksToRender) {
+  if (tasksToRender.length === 0) {
+    console.log("No task");
+
+    homePage();
+    return;
+  }
+
   table("header");
   table("line");
 

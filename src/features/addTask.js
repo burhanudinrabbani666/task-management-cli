@@ -11,13 +11,16 @@ function displaySuccesfullyMessage(newTaskFromUser) {
   homePage();
 }
 
-export async function addNewTask() {
-  const newTaskFromUser = await rl.question("add new Task: ");
-  const task = newTaskFromUser.trim();
+export async function addNewTask(taskName) {
+  const task = taskName.trim();
 
   getDataFromFile(({ data, error }) => {
     // first initial data
-    if (error?.code === "ENOENT") {
+    if (
+      error?.code === "ENOENT" ||
+      data.toString("hex") === "0a" ||
+      data.toString("hex") === ""
+    ) {
       const newTask = {
         id: 1,
         taskTitle: task,
@@ -32,7 +35,7 @@ export async function addNewTask() {
         }
       });
 
-      displaySuccesfullyMessage(newTaskFromUser);
+      displaySuccesfullyMessage(task);
       return;
     }
 
@@ -45,7 +48,7 @@ export async function addNewTask() {
 
     // Create new Task object
     const newTask = {
-      id: taskDataArray.length === 0 ? 1 : data.at(-1).id + 1,
+      id: taskDataArray.length === 0 ? 1 : taskDataArray.at(-1).id + 1,
       taskTitle: task,
       status: false,
       createdAt: new Date().toLocaleString("en-Us"),
@@ -53,8 +56,6 @@ export async function addNewTask() {
 
     // Push
     taskDataArray.push(newTask);
-
-    console.log(taskDataArray);
 
     // Rewirte Task
     fs.writeFile("taskData.json", JSON.stringify(taskDataArray), (error) => {
@@ -64,6 +65,6 @@ export async function addNewTask() {
       }
     });
 
-    displaySuccesfullyMessage(newTaskFromUser);
+    displaySuccesfullyMessage(task);
   });
 }

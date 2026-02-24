@@ -8,23 +8,57 @@ import { viewAllTask } from "./src/features/viewTask.js";
 export const rl = readline.createInterface({ input, output });
 
 const HOME_PAGE_FEATURES = [
-  { id: 1, feature: "Add Task" },
-  { id: 2, feature: "View all task" },
-  { id: 3, feature: "Search task" },
-  { id: 4, feature: "Delete all task" },
-  { id: 5, feature: "Close" },
+  { id: 1, feature: "add [task name] OR a [task name]" },
+  { id: 2, feature: "view OR v" },
+  { id: 3, feature: "search [task name] OR s [task name]" },
+  { id: 4, feature: "delete-all OR da" },
+  { id: 5, feature: "close OR c" },
 ];
 
-async function usingFeatures(answer) {
-  if (answer === "1") addNewTask();
-  if (answer === "2") viewAllTask();
-  if (answer === "5") return rl.close();
+async function handleAnswerHomePage(answerArray) {
+  if (answerArray.length > 3) {
+    console.log("Input not valid");
+    return;
+  }
+
+  const command = answerArray[0];
+  const taskName = answerArray[1];
+
+  console.log(command);
+
+  if (command === "add" || command === "a") {
+    addNewTask(taskName);
+    return;
+  }
+
+  if (command === "view" || command === "v") {
+    viewAllTask();
+    return;
+  }
+
+  if (command === "search" || command === "s") {
+    viewAllTask();
+    return;
+  }
+
+  if (command === "delete-all" || command === "da") {
+    viewAllTask();
+    return;
+  }
+
+  if (command === "close" || command === "c") {
+    rl.close();
+  } else {
+    console.log("input not valid");
+  }
 }
 
 export async function homePage() {
   renderFeatures(HOME_PAGE_FEATURES);
   const answer = await rl.question("What do you want to do? ");
-  usingFeatures(answer);
+  const answerArray = answer.trim().split(" ");
+
+  handleAnswerHomePage(answerArray);
 
   return;
 }
