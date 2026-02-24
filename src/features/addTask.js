@@ -1,14 +1,14 @@
 import fs from "fs";
 
 import { getDataFromFile } from "../services/getDataFromFile.js";
-import { homePageFeatures, rl } from "../../app.js";
+import { homePage, rl } from "../../app.js";
 
 function displaySuccesfullyMessage(newTaskFromUser) {
   // Display information
   console.log(newTaskFromUser, "Succesfully added 😃 \n");
 
   // Display homepageFeatures
-  homePageFeatures();
+  homePage();
 }
 
 export async function addNewTask() {
