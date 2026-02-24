@@ -14,8 +14,9 @@ const HOME_PAGE_FEATURES = [
   { id: 3, feature: "view-all-completed-task OR -vt" },
   { id: 4, feature: "view-all-not-completed-task OR -vf" },
   { id: 5, feature: "search [task-name] OR -s [task-name]" },
-  { id: 6, feature: "delete-all OR -da" },
-  { id: 7, feature: "close OR -c" },
+  { id: 6, feature: "detail [id] OR -d [id]" },
+  { id: 7, feature: "delete-all OR -da" },
+  { id: 8, feature: "close OR -c" },
 ];
 
 export async function renderHomepageFeatures() {

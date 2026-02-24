@@ -1,8 +1,12 @@
-import { rl } from "../../app.js";
+import fs from "node:fs";
+
+import { homePage, rl } from "../../app.js";
 import { addNewTask } from "../features/addTask.js";
 import { deleteAllTask } from "../features/deleteAllTask.js";
 import { searchTask } from "../features/searchTask.js";
 import { viewAllTask } from "../features/viewTask.js";
+import { getDataFromFile } from "./getDataFromFile.js";
+import { detailTask } from "../features/detailTask.js";
 
 export function handleAnswer(answer) {
   const answerArray = answer.split(" ");
@@ -38,13 +42,27 @@ export function handleAnswer(answer) {
   }
 
   // 5. Detail task data
+  if (command === "detail" || command === "-d") {
+    console.clear();
+    detailTask(task);
+    return;
+  }
+
   // 6. Delete data by id
   // 7. Delete all data
   if (command === "delete-all" || command === "-da") {
     deleteAllTask();
     return;
   }
+
   // 8. Edit data name by id
+  if (command === "edit-name" || command === "-en") {
+    const id = Number(task);
+    const newName = answerArray.at(2);
+
+    return;
+  }
+
   // 9. Edit data Status by id
   // Search by name
   if (command === "search" || command === "-s") {
