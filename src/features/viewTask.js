@@ -2,6 +2,7 @@ import fs from "fs";
 
 import { renderTable } from "../utils/table.js";
 import { renderFeatures } from "../home.js";
+import { homePage, rl } from "../../app.js";
 
 const VIEW_ALL_TASK_FEATURES = [
   { id: 1, feature: "Edit one task status" },
@@ -10,17 +11,37 @@ const VIEW_ALL_TASK_FEATURES = [
   { id: 4, feature: "Close app" },
 ];
 
+function handleAnswerViewAllTaskPage(answer) {}
+
 export async function viewAllTask() {
-  fs.readFile("taskData.json", (error, data) => {
-    if (error) {
-      console.log(error);
+  const readFile = fs.readFile("taskData.json", (error, data) => {
+    if (error.code === "ENOENT") {
+      console.log("No Task already, add new one! \n");
+      homePage();
+
       return;
     }
 
-    const taskToRender = JSON.parse(data);
-    renderTable(taskToRender);
-
-    console.log(""); // Spacing
-    renderFeatures(VIEW_ALL_TASK_FEATURES);
+    return { error, data };
   });
+
+  // const { error, data } = readFile;
+
+  // if (error) {
+  //   console.log(error);
+  //   return;
+  // }
+
+  // const taskToRender = JSON.parse(data);
+  // renderTable(taskToRender);
+
+  // // Render features
+  // console.log(""); // Spacing
+  // renderFeatures(VIEW_ALL_TASK_FEATURES);
+
+  // // Render Question
+  // const answer = await rl.question("What do you want to do? ");
+
+  // // Function
+  // handleAnswerViewAllTaskPage(answer);
 }

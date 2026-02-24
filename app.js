@@ -25,6 +25,8 @@ export async function homePage() {
   renderFeatures(HOME_PAGE_FEATURES);
   const answer = await rl.question("What do you want to do? ");
   usingFeatures(answer);
+
+  return;
 }
 
 async function app() {
