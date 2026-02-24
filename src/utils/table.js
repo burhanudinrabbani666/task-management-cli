@@ -1,4 +1,5 @@
 import { homePage } from "../../app.js";
+import { renderSpace } from "./config.js";
 
 function table(type = "", taskToRender) {
   if (type === "line") {
@@ -31,6 +32,7 @@ export function renderTable(tasksToRender) {
     return;
   }
 
+  renderSpace();
   table("header");
   table("line");
   tasksToRender.forEach((task) => table("", task));

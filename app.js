@@ -5,6 +5,8 @@ import { renderFeatures } from "./src/home.js";
 import { addNewTask } from "./src/features/addTask.js";
 import { viewAllTask } from "./src/features/viewTask.js";
 import { searchTask } from "./src/features/searchTask.js";
+import { renderSpace } from "./src/utils/config.js";
+import { deleteAllTask } from "./src/features/deleteAllTask.js";
 
 export const rl = readline.createInterface({ input, output });
 
@@ -42,7 +44,7 @@ async function handleAnswerHomePage(answerArray) {
   }
 
   if (command === "delete-all" || command === "da") {
-    viewAllTask();
+    deleteAllTask();
     return;
   }
 
@@ -54,7 +56,11 @@ async function handleAnswerHomePage(answerArray) {
   console.log("input not valid");
 }
 
-export async function homePage() {
+export async function homePage(message) {
+  renderSpace();
+
+  message && console.log(message);
+
   renderFeatures(HOME_PAGE_FEATURES);
   const answer = await rl.question("What do you want to do? ");
   const answerArray = answer.trim().split(" ");

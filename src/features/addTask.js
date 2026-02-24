@@ -69,5 +69,6 @@ export async function addNewTask(taskName) {
 
     renderSpace();
     displaySuccesfullyMessage(task);
+    return;
   });
 }

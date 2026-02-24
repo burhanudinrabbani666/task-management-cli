@@ -4,14 +4,13 @@ import { renderTable } from "../utils/table.js";
 import { renderFeatures } from "../home.js";
 import { homePage, rl } from "../../app.js";
 import { getDataFromFile } from "../services/getDataFromFile.js";
-import { error } from "console";
 
 export const VIEW_ALL_TASK_FEATURES = [
-  { id: 1, feature: "-edit [id]" },
-  { id: 2, feature: "-delete [id]" },
-  { id: 3, feature: "back" },
-  { id: 4, feature: "close" },
-  { id: 5, feature: "help" },
+  { id: 1, feature: "edit [id] OR e [id]" },
+  { id: 2, feature: "delete [id] OR d [id]" },
+  { id: 3, feature: "back OR b" },
+  { id: 4, feature: "close OR c" },
+  { id: 5, feature: "help OR h" },
 ];
 
 export async function handleAnswerViewAllTaskPage(answerArray) {
@@ -22,10 +21,27 @@ export async function handleAnswerViewAllTaskPage(answerArray) {
   const command = answerArray[0];
   const id = answerArray[1];
 
-  if (command === "-edit") {
+  if (command === "edit" || command === "e") {
+    console.log("e");
+    return;
   }
 
-  if (command === "-delete") {
+  if (command === "back" || command === "b") {
+    homePage();
+    return;
+  }
+
+  if (command === "close" || command === "c") {
+    rl.close();
+    return;
+  }
+
+  if (command === "help" || command === "h") {
+    console.log("this is help");
+    return;
+  }
+
+  if (command === "delete" || command === "d") {
     getDataFromFile(({ data, error }) => {
       if (error) {
         console.log(error);
@@ -33,8 +49,9 @@ export async function handleAnswerViewAllTaskPage(answerArray) {
       }
 
       const taskData = JSON.parse(data);
-      const newTasksData = taskData.filter((task) => task.id !== Number(id));
+      const taskDeleted = taskData.find((task) => task.id === Number(id));
 
+      const newTasksData = taskData.filter((task) => task.id !== Number(id));
       fs.writeFile("taskData.json", JSON.stringify(newTasksData), (error) => {
         if (error) {
           console.log(error);
@@ -49,17 +66,18 @@ export async function handleAnswerViewAllTaskPage(answerArray) {
           return;
         }
 
+        if (!data.length) {
+          homePage(`${taskDeleted.taskTitle} Succesfully deleted \n`);
+          return;
+        }
+
         renderTable(JSON.parse(data));
       });
       return;
     });
+
+    console.log("Input not valid");
   }
-
-  // if (com === "3") {
-  //   homePage();
-  // }
-
-  // if (answer === "4") rl.close();
 }
 
 export async function viewAllTask() {
