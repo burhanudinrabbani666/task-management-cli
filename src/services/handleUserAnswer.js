@@ -6,12 +6,12 @@ import { viewTaskData } from "../features/viewTask.js";
 import { detailTask } from "../features/detailTask.js";
 import { editTask } from "../features/editTask.js";
 import { deleteTaskById } from "../features/deleteTaskById.js";
+import { redirectToHomePage } from "../utils/config.js";
 
 export function handleAnswer(answer) {
-  const answerArray = answer.split(" ");
+  const answerArray = answer.trim().split(" ");
 
   const command = answerArray.at(0);
-  let task = answerArray.at(1)?.trim();
 
   // 1. add new task
   if (command === "add" || command === "-a") {
@@ -34,15 +34,25 @@ export function handleAnswer(answer) {
 
   // 6. Delete data by id
   if (command === "remove" || command === "-rm") {
+    if (answerArray.length > 2) {
+      redirectToHomePage("Input Not valid!");
+      return;
+    }
+
     deleteTaskById(answerArray);
     return;
   }
 
   // // 7. Delete all data
-  // if (command === "delete-all" || command === "-da") {
-  //   deleteAllTask();
-  //   return;
-  // }
+  if (command === "remove-all" || command === "-rma") {
+    if (answerArray.length > 1) {
+      redirectToHomePage("Input Not valid!");
+      return;
+    }
+
+    deleteAllTask();
+    return;
+  }
 
   // // 8. Edit data name by id
   // if (command === "edit-name" || command === "-en") {

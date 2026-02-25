@@ -22,6 +22,13 @@ export async function deleteTaskById(answerArray) {
     }
 
     const taskDataArray = JSON.parse(data);
+    const taskData = taskDataArray.find((taskItem) => taskItem.id === task);
+
+    if (!taskData) {
+      redirectToHomePage("Task not Found!");
+      return;
+    }
+
     const newTaskData = taskDataArray.filter(
       (taskItem) => taskItem.id !== task,
     );

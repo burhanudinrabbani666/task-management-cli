@@ -16,14 +16,21 @@ export async function renderCommand() {
 
 export async function homePage() {
   console.clear();
-
   console.log(new Date().toLocaleString("en-UK", DATE_OPTION), "\n");
 
   getDataFromFile(async ({ data, error }) => {
-    if (error?.code === "ENOENT" || JSON.parse(data).length === 0) {
+    if (
+      data.toString("hex") === "0a" ||
+      error?.code === "ENOENT" ||
+      JSON.parse(data).length === 0
+    ) {
       console.log("No tasks found. Start by creating a new task.");
-
       renderCommand();
+      return;
+    }
+
+    if (error) {
+      console.error(error);
       return;
     }
 
