@@ -9,6 +9,10 @@ export async function editTask(answerArray) {
   let field = answerArray.at(2);
   let task = answerArray.slice(3).join(" ");
 
+  if (answerArray[3] === "") {
+    task = "";
+  }
+
   if (!id || "") {
     id = await rl.question("task ID: ");
   }
@@ -37,8 +41,6 @@ export async function editTask(answerArray) {
   }
 
   if (task !== "w" && task !== "l") {
-    console.log(task !== "w", task !== "l");
-
     redirectToHomePage("Input Should be 'w' OR 'l'");
     return;
   }
