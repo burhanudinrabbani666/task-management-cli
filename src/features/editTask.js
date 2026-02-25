@@ -7,40 +7,44 @@ import { redirectToHomePage } from "../utils/config.js";
 export async function editTask(answerArray) {
   let id = answerArray.at(1);
   let field = answerArray.at(2);
-  let task = answerArray.at(3);
+  let task = answerArray.slice(3).join(" ");
 
-  if (!id) {
+  if (!id || "") {
     id = await rl.question("task ID: ");
   }
 
-  if (!field) {
-    field = (await rl.question("taskname/status: ")).trim();
-    if (field !== "status" && field !== "taskname") {
+  if (!field || "") {
+    field = (await rl.question("tn/s: ")).trim();
+    task = "";
+    if (field !== "s" && field !== "tn") {
       redirectToHomePage("Input Should be 'name' OR 'status'");
       return;
     }
   }
 
-  if (field && field !== "status" && field !== "taskname") {
+  if (field && field !== "s" && field !== "tn") {
     redirectToHomePage("Command 3 Should be 'name' OR 'status'");
     return;
   }
 
-  if (!task) {
-    if (field === "status") {
+  if (task === "") {
+    if (field === "s") {
       task = (await rl.question("New Status (w/l): ")).trim();
-      if (task !== "w" && field !== "l") {
-        redirectToHomePage("Input Should be 'w' OR 'l'");
-        return;
-      }
     }
-    if (field === "name") {
+    if (field === "tn") {
       task = (await rl.question("New task name: ")).trim();
     }
   }
 
-  if (task && field === "status") {
-    if (task !== "w" && field !== "l") {
+  if (task !== "w" && task !== "l") {
+    console.log(task !== "w", task !== "l");
+
+    redirectToHomePage("Input Should be 'w' OR 'l'");
+    return;
+  }
+
+  if (task && field === "s") {
+    if (task !== "w" && task !== "l") {
       redirectToHomePage("Command 4 Should be 'w' OR 'l'");
       return;
     }
@@ -69,14 +73,14 @@ export async function editTask(answerArray) {
 
     let newTask;
 
-    if (field === "taskTitle") {
+    if (field === "tn") {
       newTask = {
         ...taskToEdit,
         taskName: task,
       };
     }
 
-    if (field === "status") {
+    if (field === "s") {
       let newStatus;
       if (task === "w") newStatus = true;
       if (task === "l") newStatus = false;

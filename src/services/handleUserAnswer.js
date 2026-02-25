@@ -16,21 +16,18 @@ export function handleAnswer(answer) {
 
   // 1. add new task
   if (command === "add" || command === "-a") {
-    addNewTask(answerArray);
-    return;
+    return addNewTask(answerArray);
   }
 
   // 2. view All task
   if (command === "view" || command === "-v") {
     console.clear();
-    viewTaskData(answerArray);
-    return;
+    return viewTaskData(answerArray);
   }
 
   // 3. Detail task data
   if (command === "view-task" || command === "-vt") {
-    detailTask(answerArray);
-    return;
+    return detailTask(answerArray);
   }
 
   // 6. Delete data by id
@@ -40,8 +37,7 @@ export function handleAnswer(answer) {
       return;
     }
 
-    deleteTaskById(answerArray);
-    return;
+    return deleteTaskById(answerArray);
   }
 
   // // 7. Delete all data
@@ -51,14 +47,12 @@ export function handleAnswer(answer) {
       return;
     }
 
-    deleteAllTask();
-    return;
+    return deleteAllTask();
   }
 
   // // 8. Edit Task
   if (command === "edit" || command === "-e") {
-    editTask(answerArray);
-    return;
+    return editTask(answerArray);
   }
 
   // 9. Search by id
@@ -68,20 +62,19 @@ export function handleAnswer(answer) {
       return;
     }
 
-    searchTask(answerArray);
-    return;
+    return searchTask(answerArray);
   }
 
   // 10. Back to home page
   if (command === "back" || command === "-b") {
-    homePage();
-    return;
+    return homePage();
   }
 
   // 11. Close app
   if (command === "close" || command === "-c") {
     rl.close();
-    return;
+
+    return console.clear();
   }
 
   // Help

@@ -4,10 +4,10 @@ import { redirectToHomePage } from "../utils/config.js";
 import { renderTable } from "../utils/table.js";
 
 export async function searchTask(answerArray) {
-  let id = answerArray.at(1);
+  let taskName = answerArray.at(1);
 
-  if (!id) {
-    id = (await rl.question("Task ID: ")).trim();
+  if (!taskName) {
+    taskName = (await rl.question("Task name: ")).trim();
   }
 
   getDataFromFile(async ({ data, error }) => {
@@ -28,7 +28,13 @@ export async function searchTask(answerArray) {
     }
 
     const taskData = JSON.parse(data);
-    const result = taskData.filter((task) => task.id === id);
+    const result = taskData.filter((task) =>
+      task.taskName.toLowerCase().includes(taskName.toLowerCase()),
+    );
+
+    if (result.length === 0) {
+      return redirectToHomePage("Task not found!");
+    }
 
     console.clear();
     renderTable(result);
