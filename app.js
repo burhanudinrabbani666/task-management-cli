@@ -9,31 +9,6 @@ import { DATE_OPTION } from "./src/utils/config.js";
 
 export const rl = readline.createInterface({ input, output });
 
-const HOME_PAGE_FEATURES = [
-  { id: 1, feature: "add [task-name] OR a [task-name]" },
-  { id: 2, feature: "view OR -v" },
-  { id: 3, feature: "view-all-completed-task OR -vt" },
-  { id: 4, feature: "view-all-not-completed-task OR -vf" },
-  { id: 5, feature: "search [task-name] OR -s [task-name]" },
-  { id: 6, feature: "detail [id] OR -d [id]" },
-  { id: 7, feature: "delete-all OR -da" },
-  { id: 8, feature: "close OR -c" },
-];
-
-export async function renderHomepageFeatures(dataLength) {
-  let featuresToRender = HOME_PAGE_FEATURES;
-
-  if (dataLength === "empty") {
-    featuresToRender = HOME_PAGE_FEATURES.filter(
-      (feature) => feature.id === 1 || feature.id === 8,
-    );
-  }
-
-  renderFeatures(featuresToRender);
-  const answer = await rl.question("What do you want to do? ");
-  handleAnswer(answer);
-}
-
 export async function renderCommand() {
   const answer = await rl.question("\nCommand: ");
   handleAnswer(answer);
@@ -41,6 +16,8 @@ export async function renderCommand() {
 
 export async function homePage() {
   console.clear();
+
+  console.log(new Date().toLocaleString("en-UK", DATE_OPTION), "\n");
 
   getDataFromFile(async ({ data, error }) => {
     if (error?.code === "ENOENT" || JSON.parse(data).length === 0) {
@@ -53,7 +30,6 @@ export async function homePage() {
     // render if data already exist
     const taskData = JSON.parse(data);
 
-    console.log(new Date().toLocaleString("en-UK", DATE_OPTION), "\n");
     renderTable(taskData);
     renderCommand();
 

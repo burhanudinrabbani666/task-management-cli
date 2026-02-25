@@ -1,11 +1,8 @@
-import fs from "node:fs";
-
 import { homePage, rl } from "../../app.js";
 import { addNewTask } from "../features/addTask.js";
 import { deleteAllTask } from "../features/deleteAllTask.js";
 import { searchTask } from "../features/searchTask.js";
 import { viewTaskData } from "../features/viewTask.js";
-import { getDataFromFile } from "./getDataFromFile.js";
 import { detailTask } from "../features/detailTask.js";
 import { editTask } from "../features/editTask.js";
 
@@ -28,61 +25,47 @@ export function handleAnswer(answer) {
     return;
   }
 
-  // 3. view all completed task
-  if (command === "view-all-completed-task" || command === "-vt") {
-    console.clear();
-    viewTaskData("-vt");
-    return;
-  }
-
-  // 4. view all not completed task
-  if (command === "view-all-completed-task" || command === "-vf") {
-    console.clear();
-    viewTaskData("-vf");
-    return;
-  }
-
-  // 5. Detail task data
-  if (command === "detail" || command === "-d") {
+  // 3. Detail task data
+  if (command === "view-task" || command === "-vt") {
     console.clear();
     detailTask(task);
     return;
   }
 
-  // 6. Delete data by id
-  // 7. Delete all data
-  if (command === "delete-all" || command === "-da") {
-    deleteAllTask();
-    return;
-  }
+  // // 6. Delete data by id
+  // // 7. Delete all data
+  // if (command === "delete-all" || command === "-da") {
+  //   deleteAllTask();
+  //   return;
+  // }
 
-  // 8. Edit data name by id
-  if (command === "edit-name" || command === "-en") {
-    console.clear();
+  // // 8. Edit data name by id
+  // if (command === "edit-name" || command === "-en") {
+  //   console.clear();
 
-    const id = Number(task);
-    const dataItem = answerArray.at(2);
+  //   const id = Number(task);
+  //   const dataItem = answerArray.at(2);
 
-    editTask("taskTitle", { id, dataItem });
-    return;
-  }
+  //   editTask("taskTitle", { id, dataItem });
+  //   return;
+  // }
 
-  // 9. Edit data Status by id
-  if (command === "edit-status" || command === "-es") {
-    console.clear();
+  // // 9. Edit data Status by id
+  // if (command === "edit-status" || command === "-es") {
+  //   console.clear();
 
-    const id = Number(task);
-    const dataItem = answerArray.at(2);
+  //   const id = Number(task);
+  //   const dataItem = answerArray.at(2);
 
-    editTask("status", { id, dataItem });
-    return;
-  }
+  //   editTask("status", { id, dataItem });
+  //   return;
+  // }
 
-  // Search by name
-  if (command === "search" || command === "-s") {
-    searchTask(task);
-    return;
-  }
+  // // Search by name
+  // if (command === "search" || command === "-s") {
+  //   searchTask(task);
+  //   return;
+  // }
 
   // 10. Back to home page
   if (command === "back" || command === "-b") {

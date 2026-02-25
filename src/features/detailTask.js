@@ -1,7 +1,8 @@
-import { homePage, rl } from "../../app.js";
+import { homePage, renderCommand, rl } from "../../app.js";
 import { renderFeatures } from "../home.js";
 import { getDataFromFile } from "../services/getDataFromFile.js";
 import { handleAnswer } from "../services/handleUserAnswer.js";
+import { DATE_OPTION, redirectToHomePage } from "../utils/config.js";
 
 const DETAIL_PAGE_FEATURES = [
   { id: 1, feature: "edit-name [id] [task-name] OR -en id [task-name]" },
@@ -11,34 +12,39 @@ const DETAIL_PAGE_FEATURES = [
 
 export function detailTask(task) {
   getDataFromFile(async ({ data, error }) => {
-    if (error) {
-      homePage(error.message);
-    }
-
-    const tasksData = JSON.parse(data);
-    const taskToRender = tasksData.find(
-      (taskItem) => taskItem.id === Number(task),
-    );
-
-    if (!taskToRender) {
-      homePage("Task no Found!");
-
+    if (
+      error?.code === "ENOENT" ||
+      JSON.parse(data).length === 0 ||
+      !JSON.parse(data)
+    ) {
+      redirectToHomePage("You dont have task yet!");
       return;
     }
 
-    const { id, taskTitle, status, createdAt } = taskToRender;
+    const tasksData = JSON.parse(data);
+
+    const taskToRender = tasksData.find(
+      (taskItem) => taskItem.id === task.trim(),
+    );
+
+    if (!taskToRender) {
+      redirectToHomePage("Task not found!");
+      return;
+    }
+
+    const { id, taskName, status, createdAt } = taskToRender;
 
     console.log(`${"ID".padEnd(15, " ")}: `, id);
-    console.log(`${"Task".padEnd(15, " ")}: `, taskTitle);
+    console.log(`${"Task name".padEnd(15, " ")}: `, taskName);
     console.log(
       `${"status".padEnd(15, " ")}: `,
       status ? "✅ Completed" : "❌ Not Completed ",
     );
-    console.log(`${"Created at".padEnd(15, " ")}: `, createdAt);
+    console.log(
+      `${"Created at".padEnd(15, " ")}: `,
+      new Date(createdAt).toLocaleString("en-UK", DATE_OPTION),
+    );
 
-    renderFeatures(DETAIL_PAGE_FEATURES);
-    const answer = await rl.question("What next: ");
-
-    handleAnswer(answer);
+    renderCommand();
   });
 }
