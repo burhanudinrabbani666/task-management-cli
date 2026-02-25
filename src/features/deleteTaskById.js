@@ -13,13 +13,12 @@ export async function deleteTaskById(answerArray) {
 
   getDataFromFile(({ data, error }) => {
     if (
+      data?.toString("hex") === "0a" ||
       error?.code === "ENOENT" ||
       JSON.parse(data).length === 0 ||
-      !JSON.parse(data) ||
-      data.toString("hex") === "0a"
+      !JSON.parse(data)
     ) {
-      redirectToHomePage("You dont have task yet!");
-      return;
+      return redirectToHomePage("You dont have task yet!");
     }
 
     const taskDataArray = JSON.parse(data);

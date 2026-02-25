@@ -33,8 +33,7 @@ export function handleAnswer(answer) {
   // 6. Delete data by id
   if (command === "remove" || command === "-rm") {
     if (answerArray.length > 2) {
-      redirectToHomePage("Input Not valid!");
-      return;
+      return redirectToHomePage("Input Not valid!");
     }
 
     return deleteTaskById(answerArray);
@@ -43,8 +42,7 @@ export function handleAnswer(answer) {
   // // 7. Delete all data
   if (command === "remove-all" || command === "-rma") {
     if (answerArray.length > 1) {
-      redirectToHomePage("Input Not valid!");
-      return;
+      return redirectToHomePage("Input Not valid!");
     }
 
     return deleteAllTask();
@@ -58,8 +56,7 @@ export function handleAnswer(answer) {
   // 9. Search by id
   if (command === "search" || command === "-s") {
     if (answerArray.length > 2) {
-      redirectToHomePage("Input Not valid!");
-      return;
+      return redirectToHomePage("Input Not valid!");
     }
 
     return searchTask(answerArray);

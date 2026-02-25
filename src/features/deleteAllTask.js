@@ -8,12 +8,11 @@ export async function deleteAllTask() {
 
   getDataFromFile(({ data, error }) => {
     if (
+      data?.toString("hex") === "0a" ||
       error?.code === "ENOENT" ||
-      JSON.parse(data).length === 0 ||
-      data.toString("hex") === "0a"
+      JSON.parse(data).length === 0
     ) {
-      redirectToHomePage("You dont have task yet!");
-      return;
+      return redirectToHomePage("You dont have task yet!");
     }
 
     if (answer.toLowerCase() === "y") {

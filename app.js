@@ -23,13 +23,12 @@ export async function homePage() {
 
   getDataFromFile(async ({ data, error }) => {
     if (
-      data.toString("hex") === "0a" ||
+      data?.toString("hex") === "0a" ||
       error?.code === "ENOENT" ||
       JSON.parse(data).length === 0
     ) {
       console.log("No tasks found. Start by creating a new task.");
-      renderCommand();
-      return;
+      return renderCommand();
     }
 
     if (error) {
@@ -46,14 +45,12 @@ export async function homePage() {
     );
 
     renderTable(todayTask);
-    renderCommand();
-
-    return;
+    return renderCommand();
   });
 }
 
 async function app() {
-  homePage();
+  return homePage();
 }
 
 app();

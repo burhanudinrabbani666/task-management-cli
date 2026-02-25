@@ -12,14 +12,12 @@ export async function searchTask(answerArray) {
 
   getDataFromFile(async ({ data, error }) => {
     if (
+      data?.toString("hex") === "0a" ||
       error?.code === "ENOENT" ||
       JSON.parse(data).length === 0 ||
-      !JSON.parse(data) ||
-      data.toString("hex") === "0a"
+      !JSON.parse(data)
     ) {
-      redirectToHomePage("You dont have any task!");
-
-      return;
+      return redirectToHomePage("You dont have any task!");
     }
 
     if (error) {

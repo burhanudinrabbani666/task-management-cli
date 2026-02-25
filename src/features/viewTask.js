@@ -1,6 +1,7 @@
 import { renderTable } from "../utils/table.js";
 import { homePage, renderCommand } from "../../app.js";
 import { getDataFromFile } from "../services/getDataFromFile.js";
+import { redirectToHomePage } from "../utils/config.js";
 
 export async function viewTaskData(answerArray) {
   const task = answerArray.at(1);
@@ -22,15 +23,7 @@ export async function viewTaskData(answerArray) {
       !JSON.parse(data) ||
       data.toString("hex") === "0a"
     ) {
-      console.log(
-        "You dont have task yet! Redirect to Home page in 3 seconds...",
-      );
-
-      setTimeout(() => {
-        homePage();
-      }, 3000);
-
-      return;
+      return redirectToHomePage("You dont have any task yet!");
     }
 
     const taskData = JSON.parse(data);

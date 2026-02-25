@@ -5,65 +5,61 @@ import { homePage, rl } from "../../app.js";
 import { redirectToHomePage } from "../utils/config.js";
 
 export async function editTask(answerArray) {
-  let id = answerArray.at(1);
-  let field = answerArray.at(2);
-  let task = answerArray.slice(3).join(" ");
-
-  if (answerArray[3] === "") {
-    task = "";
-  }
-
-  if (!id || "") {
-    id = await rl.question("task ID: ");
-  }
-
-  if (!field || "") {
-    field = (await rl.question("tn/s: ")).trim();
-    task = "";
-    if (field !== "s" && field !== "tn") {
-      redirectToHomePage("Input Should be 'name' OR 'status'");
-      return;
-    }
-  }
-
-  if (field && field !== "s" && field !== "tn") {
-    redirectToHomePage("Command 3 Should be 'name' OR 'status'");
-    return;
-  }
-
-  if (task === "") {
-    if (field === "s") {
-      task = (await rl.question("New Status (w/l): ")).trim();
-    }
-    if (field === "tn") {
-      task = (await rl.question("New task name: ")).trim();
-    }
-  }
-
-  if (task !== "w" && task !== "l") {
-    redirectToHomePage("Input Should be 'w' OR 'l'");
-    return;
-  }
-
-  if (task && field === "s") {
-    if (task !== "w" && task !== "l") {
-      redirectToHomePage("Command 4 Should be 'w' OR 'l'");
-      return;
-    }
-  }
-
-  // const { id, dataItem } = data;
-
-  getDataFromFile(({ data, error }) => {
+  getDataFromFile(async ({ data, error }) => {
     if (
+      data?.toString("hex") === "0a" ||
       error?.code === "ENOENT" ||
       JSON.parse(data).length === 0 ||
-      !JSON.parse(data) ||
-      data.toString("hex") === "0a"
+      !JSON.parse(data)
     ) {
-      redirectToHomePage("You dont have any task!");
+      return redirectToHomePage("You dont have any task!");
+    }
 
+    let id = answerArray.at(1);
+    let field = answerArray.at(2);
+    let task = answerArray.slice(3).join(" ");
+
+    if (answerArray[3] === "") {
+      task = "";
+    }
+
+    if (!id || "") {
+      id = await rl.question("task ID: ");
+    }
+
+    if (!field || "") {
+      field = (await rl.question("tn/s: ")).trim();
+      task = "";
+      if (field !== "s" && field !== "tn") {
+        redirectToHomePage("Input Should be 'name' OR 'status'");
+        return;
+      }
+    }
+
+    if (field && field !== "s" && field !== "tn") {
+      redirectToHomePage("Command 3 Should be 'name' OR 'status'");
       return;
+    }
+
+    if (task === "") {
+      if (field === "s") {
+        task = (await rl.question("New Status (w/l): ")).trim();
+      }
+      if (field === "tn") {
+        task = (await rl.question("New task name: ")).trim();
+      }
+    }
+
+    if (task !== "w" && task !== "l") {
+      redirectToHomePage("Input Should be 'w' OR 'l'");
+      return;
+    }
+
+    if (task && field === "s") {
+      if (task !== "w" && task !== "l") {
+        redirectToHomePage("Command 4 Should be 'w' OR 'l'");
+        return;
+      }
     }
 
     let taskDataArray = JSON.parse(data);
