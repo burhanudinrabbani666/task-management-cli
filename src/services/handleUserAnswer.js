@@ -5,6 +5,7 @@ import { searchTask } from "../features/searchTask.js";
 import { viewTaskData } from "../features/viewTask.js";
 import { detailTask } from "../features/detailTask.js";
 import { editTask } from "../features/editTask.js";
+import { deleteTaskById } from "../features/deleteTaskById.js";
 
 export function handleAnswer(answer) {
   const answerArray = answer.split(" ");
@@ -27,12 +28,16 @@ export function handleAnswer(answer) {
 
   // 3. Detail task data
   if (command === "view-task" || command === "-vt") {
-    console.clear();
-    detailTask(task);
+    detailTask(answerArray);
     return;
   }
 
-  // // 6. Delete data by id
+  // 6. Delete data by id
+  if (command === "remove" || command === "-rm") {
+    deleteTaskById(answerArray);
+    return;
+  }
+
   // // 7. Delete all data
   // if (command === "delete-all" || command === "-da") {
   //   deleteAllTask();

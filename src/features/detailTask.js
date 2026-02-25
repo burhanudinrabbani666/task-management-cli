@@ -1,16 +1,15 @@
-import { homePage, renderCommand, rl } from "../../app.js";
-import { renderFeatures } from "../home.js";
+import { renderCommand, rl } from "../../app.js";
 import { getDataFromFile } from "../services/getDataFromFile.js";
-import { handleAnswer } from "../services/handleUserAnswer.js";
 import { DATE_OPTION, redirectToHomePage } from "../utils/config.js";
 
-const DETAIL_PAGE_FEATURES = [
-  { id: 1, feature: "edit-name [id] [task-name] OR -en id [task-name]" },
-  { id: 2, feature: "edit-status [id] w/l  OR -es id w/l" },
-  { id: 3, feature: "back OR -b" },
-];
+export async function detailTask(answerArray) {
+  let task = answerArray.at(1)?.trim();
 
-export function detailTask(task) {
+  if (task === "" || !task) {
+    task = await rl.question("task ID: ");
+  }
+
+  console.clear();
   getDataFromFile(async ({ data, error }) => {
     if (
       error?.code === "ENOENT" ||
