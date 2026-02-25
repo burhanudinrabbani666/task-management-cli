@@ -1,4 +1,4 @@
-import { homePage, rl } from "../../app.js";
+import { homePage, renderCommand, rl } from "../../app.js";
 import { addNewTask } from "../features/addTask.js";
 import { deleteAllTask } from "../features/deleteAllTask.js";
 import { searchTask } from "../features/searchTask.js";
@@ -7,6 +7,7 @@ import { detailTask } from "../features/detailTask.js";
 import { editTask } from "../features/editTask.js";
 import { deleteTaskById } from "../features/deleteTaskById.js";
 import { redirectToHomePage } from "../utils/config.js";
+import { helpGuide } from "../help.js";
 
 export function handleAnswer(answer) {
   const answerArray = answer.trim().split(" ");
@@ -54,28 +55,22 @@ export function handleAnswer(answer) {
     return;
   }
 
-  // // 8. Edit data name by id
-  if (command === "edit-name" || command === "-en") {
+  // // 8. Edit Task
+  if (command === "edit" || command === "-e") {
     editTask(answerArray);
     return;
   }
 
-  // 9. Edit data Status by id
-  // if (command === "edit-status" || command === "-es") {
-  //   console.clear();
+  // 9. Search by id
+  if (command === "search" || command === "-s") {
+    if (answerArray.length > 2) {
+      redirectToHomePage("Input Not valid!");
+      return;
+    }
 
-  //   const id = Number(task);
-  //   const dataItem = answerArray.at(2);
-
-  //   editTask("status", { id, dataItem });
-  //   return;
-  // }
-
-  // // Search by name
-  // if (command === "search" || command === "-s") {
-  //   searchTask(task);
-  //   return;
-  // }
+    searchTask(answerArray);
+    return;
+  }
 
   // 10. Back to home page
   if (command === "back" || command === "-b") {
@@ -89,5 +84,24 @@ export function handleAnswer(answer) {
     return;
   }
 
+  // Help
+  if (command === "help" || command === "-h") {
+    console.clear();
+
+    renderGuide(helpGuide);
+    renderCommand();
+
+    return;
+  }
   // Input invalid
+  return redirectToHomePage("Input not valid");
+}
+
+function renderGuide(helpGuide) {
+  helpGuide.forEach((guide) => {
+    console.log("-------------------------");
+    console.log("Command: ", guide.Command);
+    console.log("Example: ", guide.example);
+    console.log("Description: ", guide.Description);
+  });
 }

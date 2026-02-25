@@ -1,7 +1,6 @@
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 
-import { renderFeatures } from "./src/home.js";
 import { getDataFromFile } from "./src/services/getDataFromFile.js";
 import { renderTable } from "./src/utils/table.js";
 import { handleAnswer } from "./src/services/handleUserAnswer.js";
@@ -16,7 +15,11 @@ export async function renderCommand() {
 
 export async function homePage() {
   console.clear();
-  console.log(new Date().toLocaleString("en-UK", DATE_OPTION), "\n");
+  console.log(
+    "Hello".padEnd(20, " "),
+    new Date().toLocaleString("en-UK", DATE_OPTION),
+    "\n",
+  );
 
   getDataFromFile(async ({ data, error }) => {
     if (
@@ -36,8 +39,13 @@ export async function homePage() {
 
     // render if data already exist
     const taskData = JSON.parse(data);
+    const todayTask = taskData.filter(
+      (task) =>
+        new Date(task.createdAt).toLocaleString("en-UK", DATE_OPTION) ===
+        new Date().toLocaleString("en-UK", DATE_OPTION),
+    );
 
-    renderTable(taskData);
+    renderTable(todayTask);
     renderCommand();
 
     return;

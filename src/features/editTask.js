@@ -56,6 +56,8 @@ export async function editTask(answerArray) {
       data.toString("hex") === "0a"
     ) {
       redirectToHomePage("You dont have any task!");
+
+      return;
     }
 
     let taskDataArray = JSON.parse(data);
