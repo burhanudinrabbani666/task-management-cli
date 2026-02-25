@@ -33,15 +33,19 @@ export async function renderHomepageFeatures(dataLength) {
   handleAnswer(answer);
 }
 
-export async function homePage(message) {
+export async function renderCommand() {
+  const answer = await rl.question("\nCommand: ");
+  handleAnswer(answer);
+}
+
+export async function homePage() {
   console.clear();
-  message && console.log(`${message} \n`);
 
   getDataFromFile(async ({ data, error }) => {
     if (error?.code === "ENOENT" || JSON.parse(data).length === 0) {
-      console.log(JSON.parse(data));
+      console.log("No tasks found. Start by creating a new task.");
 
-      renderHomepageFeatures("empty");
+      renderCommand();
       return;
     }
 
@@ -49,7 +53,7 @@ export async function homePage(message) {
     const taskData = JSON.parse(data);
 
     renderTable(taskData);
-    renderHomepageFeatures();
+    renderCommand();
 
     return;
   });

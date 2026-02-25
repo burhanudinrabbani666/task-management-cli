@@ -2,24 +2,20 @@ import { homePage } from "../../app.js";
 
 function table(type = "", taskToRender) {
   if (type === "line") {
-    console.log(
-      `|${"".toString().padEnd(3, "-")}|${"".padEnd(25, "-")}|${"".padEnd(20, "-")}|${"".padEnd(29, "-")}|`,
-    );
+    console.log(`|${"".padEnd(100, "-")}|${"".padEnd(6, "-")}|`);
 
     return;
   }
 
   if (type === "header") {
-    console.log(
-      `|${"Id".toString().padEnd(3, " ")}|${"Tasks".padEnd(25, " ")}|${"Status".padEnd(20, " ")}|${"Created at".padEnd(29, " ")}|`,
-    );
+    console.log(`|${"Tasks".padEnd(100, " ")}|${"Status".padEnd(6, " ")}|`);
 
     return;
   }
 
-  const { id, taskTitle, status, createdAt } = taskToRender;
+  const { taskName, status } = taskToRender;
   console.log(
-    `|${id.toString().padEnd(3, " ")}|${taskTitle.padEnd(25, " ")}|${(status ? "✅" : "❎").padEnd(19, " ")}|${createdAt.padEnd(29, " ")}|`,
+    `|${taskName.padEnd(100, " ")}|${(status ? "✅" : "❎").padStart(3, " ").padEnd(5, " ")}|`,
   );
 }
 

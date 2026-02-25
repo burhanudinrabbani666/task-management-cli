@@ -17,7 +17,7 @@ export function handleAnswer(answer) {
 
   // 1. add new task
   if (command === "add" || command === "-a") {
-    addNewTask(task);
+    addNewTask(answerArray);
     return;
   }
 
