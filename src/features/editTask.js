@@ -7,10 +7,9 @@ import { redirectToHomePage } from "../utils/config.js";
 export async function editTask(answerArray) {
   getDataFromFile(async ({ data, error }) => {
     if (
-      data?.toString("hex") === "0a" ||
       error?.code === "ENOENT" ||
-      JSON.parse(data).length === 0 ||
-      !JSON.parse(data)
+      data?.toString("hex") === "0a" ||
+      JSON.parse(data).length === 0
     ) {
       return redirectToHomePage("You dont have any task!");
     }
@@ -75,6 +74,7 @@ export async function editTask(answerArray) {
       newTask = {
         ...taskToEdit,
         taskName: task,
+        updatedAt: new Date(),
       };
     }
 
@@ -86,6 +86,7 @@ export async function editTask(answerArray) {
       newTask = {
         ...taskToEdit,
         status: newStatus,
+        updatedAt: new Date(),
       };
     }
 

@@ -15,8 +15,7 @@ export async function deleteTaskById(answerArray) {
     if (
       data?.toString("hex") === "0a" ||
       error?.code === "ENOENT" ||
-      JSON.parse(data).length === 0 ||
-      !JSON.parse(data)
+      JSON.parse(data).length === 0
     ) {
       return redirectToHomePage("You dont have task yet!");
     }

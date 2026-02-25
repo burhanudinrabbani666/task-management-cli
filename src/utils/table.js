@@ -1,4 +1,5 @@
-import { homePage } from "../../app.js";
+import { homePage, renderCommand } from "../../app.js";
+import { redirectToHomePage } from "./config.js";
 
 function table(type = "", taskToRender) {
   if (type === "line") {
@@ -24,13 +25,6 @@ function table(type = "", taskToRender) {
 }
 
 export function renderTable(tasksToRender) {
-  if (tasksToRender.length === 0) {
-    console.log("No task");
-
-    homePage();
-    return;
-  }
-
   table("header");
   table("line");
   tasksToRender.forEach((task) => table("", task));

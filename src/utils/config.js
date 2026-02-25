@@ -17,3 +17,5 @@ export function redirectToHomePage(message) {
     homePage();
   }, 3000);
 }
+
+export const PADDING_DETAIL = 10;

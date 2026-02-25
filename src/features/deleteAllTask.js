@@ -8,8 +8,8 @@ export async function deleteAllTask() {
 
   getDataFromFile(({ data, error }) => {
     if (
-      data?.toString("hex") === "0a" ||
       error?.code === "ENOENT" ||
+      data?.toString("hex") === "0a" ||
       JSON.parse(data).length === 0
     ) {
       return redirectToHomePage("You dont have task yet!");

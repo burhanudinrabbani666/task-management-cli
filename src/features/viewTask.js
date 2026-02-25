@@ -7,20 +7,13 @@ export async function viewTaskData(answerArray) {
   const task = answerArray.at(1);
 
   if (task && task !== "w" && task !== "l") {
-    console.log("Input not Valid! Redirect to Homepage in 3 seconds...");
-
-    setTimeout(() => {
-      homePage();
-    }, 3000);
-
-    return;
+    return redirectToHomePage("Input not valid!");
   }
 
   getDataFromFile(async ({ data, error }) => {
     if (
       error?.code === "ENOENT" ||
       JSON.parse(data).length === 0 ||
-      !JSON.parse(data) ||
       data.toString("hex") === "0a"
     ) {
       return redirectToHomePage("You dont have any task yet!");

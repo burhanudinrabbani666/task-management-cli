@@ -16,65 +16,77 @@ export function handleAnswer(answer) {
 
   // 1. add new task
   if (command === "add" || command === "-a") {
-    return addNewTask(answerArray);
+    addNewTask(answerArray);
+    return;
   }
 
   // 2. view All task
   if (command === "view" || command === "-v") {
     console.clear();
-    return viewTaskData(answerArray);
+    viewTaskData(answerArray);
+    return;
   }
 
   // 3. Detail task data
   if (command === "view-task" || command === "-vt") {
-    return detailTask(answerArray);
+    detailTask(answerArray);
+    return;
   }
 
   // 6. Delete data by id
   if (command === "remove" || command === "-rm") {
     if (answerArray.length > 2) {
-      return redirectToHomePage("Input Not valid!");
+      redirectToHomePage("Input Not valid!");
+      return;
     }
 
-    return deleteTaskById(answerArray);
+    deleteTaskById(answerArray);
+    return;
   }
 
-  // // 7. Delete all data
+  // 7. Delete all data
   if (command === "remove-all" || command === "-rma") {
     if (answerArray.length > 1) {
-      return redirectToHomePage("Input Not valid!");
+      redirectToHomePage("Input Not valid!");
+      return;
     }
 
-    return deleteAllTask();
+    deleteAllTask();
+    return;
   }
 
-  // // 8. Edit Task
+  // 8. Edit Task
   if (command === "edit" || command === "-e") {
-    return editTask(answerArray);
+    editTask(answerArray);
+    return;
   }
 
   // 9. Search by id
   if (command === "search" || command === "-s") {
     if (answerArray.length > 2) {
-      return redirectToHomePage("Input Not valid!");
+      redirectToHomePage("Input Not valid!");
+      return;
     }
 
-    return searchTask(answerArray);
+    searchTask(answerArray);
+    return;
   }
 
   // 10. Back to home page
   if (command === "back" || command === "-b") {
-    return homePage();
+    homePage();
+    return;
   }
 
   // 11. Close app
   if (command === "close" || command === "-c") {
     rl.close();
 
-    return console.clear();
+    console.clear();
+    return;
   }
 
-  // Help
+  // 12. Help
   if (command === "help" || command === "-h") {
     console.clear();
 
@@ -83,8 +95,10 @@ export function handleAnswer(answer) {
 
     return;
   }
+
   // Input invalid
-  return redirectToHomePage("Input not valid");
+  redirectToHomePage("Input not valid");
+  return;
 }
 
 function renderGuide(helpGuide) {

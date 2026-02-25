@@ -1,6 +1,10 @@
 import { renderCommand, rl } from "../../app.js";
 import { getDataFromFile } from "../services/getDataFromFile.js";
-import { DATE_OPTION, redirectToHomePage } from "../utils/config.js";
+import {
+  DATE_OPTION,
+  PADDING_DETAIL,
+  redirectToHomePage,
+} from "../utils/config.js";
 
 export async function detailTask(answerArray) {
   let task = answerArray.at(1)?.trim();
@@ -12,8 +16,8 @@ export async function detailTask(answerArray) {
   console.clear();
   getDataFromFile(async ({ data, error }) => {
     if (
-      data?.toString("hex") === "0a" ||
       error?.code === "ENOENT" ||
+      data?.toString("hex") === "0a" ||
       JSON.parse(data).length === 0
     ) {
       return redirectToHomePage("You dont have task yet!");
@@ -30,17 +34,21 @@ export async function detailTask(answerArray) {
       return;
     }
 
-    const { id, taskName, status, createdAt } = taskToRender;
+    const { id, taskName, status, createdAt, updatedAt } = taskToRender;
 
-    console.log(`${"ID".padEnd(15, " ")}: `, id);
-    console.log(`${"Task name".padEnd(15, " ")}: `, taskName);
+    console.log(`${"ID".padEnd(PADDING_DETAIL, " ")}: `, id);
+    console.log(`${"Task name".padEnd(PADDING_DETAIL, " ")}: `, taskName);
     console.log(
-      `${"status".padEnd(15, " ")}: `,
+      `${"status".padEnd(PADDING_DETAIL, " ")}: `,
       status ? "✅ Completed" : "❌ Not Completed ",
     );
     console.log(
-      `${"Created at".padEnd(15, " ")}: `,
+      `${"Created at".padEnd(PADDING_DETAIL, " ")}: `,
       new Date(createdAt).toLocaleString("en-UK", DATE_OPTION),
+    );
+    console.log(
+      `${"Updated at".padEnd(PADDING_DETAIL, " ")}: `,
+      new Date(updatedAt).toLocaleString("en-UK", DATE_OPTION),
     );
 
     renderCommand();

@@ -15,7 +15,7 @@ export async function addNewTask(answerArray) {
     taskName,
     status: false,
     createdAt: new Date(),
-    updateAt: null,
+    updatedAt: null,
   };
 
   addNewTaskToData(newTask);

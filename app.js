@@ -28,11 +28,8 @@ export async function homePage() {
       JSON.parse(data).length === 0
     ) {
       console.log("No tasks found. Start by creating a new task.");
-      return renderCommand();
-    }
+      renderCommand();
 
-    if (error) {
-      console.error(error);
       return;
     }
 
@@ -44,13 +41,16 @@ export async function homePage() {
         new Date().toLocaleString("en-UK", DATE_OPTION),
     );
 
-    renderTable(todayTask);
-    return renderCommand();
+    if (todayTask.length > 0) renderTable(todayTask);
+    if (todayTask.length === 0)
+      console.log("You dont have task today. Add new one 💪");
+
+    renderCommand();
   });
 }
 
 async function app() {
-  return homePage();
+  homePage();
 }
 
 app();
