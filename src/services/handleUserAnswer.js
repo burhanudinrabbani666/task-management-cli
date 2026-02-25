@@ -4,7 +4,7 @@ import { homePage, rl } from "../../app.js";
 import { addNewTask } from "../features/addTask.js";
 import { deleteAllTask } from "../features/deleteAllTask.js";
 import { searchTask } from "../features/searchTask.js";
-import { viewAllTask } from "../features/viewTask.js";
+import { viewTaskData } from "../features/viewTask.js";
 import { getDataFromFile } from "./getDataFromFile.js";
 import { detailTask } from "../features/detailTask.js";
 import { editTask } from "../features/editTask.js";
@@ -24,21 +24,21 @@ export function handleAnswer(answer) {
   // 2. view All task
   if (command === "view" || command === "-v") {
     console.clear();
-    viewAllTask();
+    viewTaskData(answerArray);
     return;
   }
 
   // 3. view all completed task
   if (command === "view-all-completed-task" || command === "-vt") {
     console.clear();
-    viewAllTask("-vt");
+    viewTaskData("-vt");
     return;
   }
 
   // 4. view all not completed task
   if (command === "view-all-completed-task" || command === "-vf") {
     console.clear();
-    viewAllTask("-vf");
+    viewTaskData("-vf");
     return;
   }
 
