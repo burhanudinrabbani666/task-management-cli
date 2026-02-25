@@ -1,6 +1,3 @@
-import { homePage, renderCommand } from "../../app.js";
-import { redirectToHomePage } from "./config.js";
-
 function table(type = "", taskToRender) {
   if (type === "line") {
     console.log(

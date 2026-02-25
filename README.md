@@ -1,4 +1,4 @@
-# 📋 Task Manager CLI
+# Task Manager CLI
 
 A command-line task management application built with Node.js. Create, view, edit, search, and remove tasks directly from your terminal.
 
@@ -24,7 +24,7 @@ npm start
 
 ## 📖 Command Reference
 
-### ➕ Add a Task
+### Add a Task
 
 ```
 add <task name>
@@ -42,7 +42,7 @@ add Running with Friend
 
 ---
 
-### 📄 View Tasks
+### View Tasks
 
 ```
 view
@@ -62,7 +62,7 @@ view l     → Show only incomplete tasks
 
 ---
 
-### 🔍 View Task Details
+### View Task Details
 
 ```
 view-task <id>
@@ -80,7 +80,7 @@ view-task 1234
 
 ---
 
-### ✏️ Edit a Task
+### Edit a Task
 
 ```
 edit <id> <field> <value>
@@ -107,7 +107,7 @@ edit 1234 s l                           → Mark task as incomplete
 
 ---
 
-### 🔎 Search Tasks
+### Search Tasks
 
 ```
 search <name>
@@ -125,7 +125,7 @@ search running
 
 ---
 
-### 🗑️ Remove a Task
+### Remove a Task
 
 ```
 remove <id>
@@ -143,7 +143,7 @@ remove 1234
 
 ---
 
-### 💣 Remove All Tasks
+### Remove All Tasks
 
 ```
 remove-all
@@ -154,7 +154,7 @@ Deletes every task in your list at once. A confirmation prompt will appear befor
 
 ---
 
-### 🏠 Back / Home
+### Back / Home
 
 ```
 back
@@ -165,7 +165,7 @@ Returns you to the home page / main menu of the application.
 
 ---
 
-### ❌ Close the App
+### Close the App
 
 ```
 close
@@ -187,7 +187,7 @@ Displays this command guide within the application.
 
 ---
 
-## 🗂️ Command Summary
+## Command Summary
 
 | Command                     | Alias     | Description                   |
 | --------------------------- | --------- | ----------------------------- |

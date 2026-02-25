@@ -1,5 +1,5 @@
 import { renderTable } from "../utils/table.js";
-import { homePage, renderCommand } from "../../app.js";
+import { renderCommand } from "../../app.js";
 import { getDataFromFile } from "../services/getDataFromFile.js";
 import { redirectToHomePage } from "../utils/config.js";
 
