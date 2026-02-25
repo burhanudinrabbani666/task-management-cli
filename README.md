@@ -2,6 +2,8 @@
 
 A command-line task management application built with Node.js. Create, view, edit, search, and remove tasks directly from your terminal.
 
+begginer project of: https://roadmap.sh/projects/task-tracker
+
 **Author:** Burhanudin Rabbani
 
 ---
