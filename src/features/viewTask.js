@@ -19,7 +19,8 @@ export async function viewTaskData(answerArray) {
     if (
       error?.code === "ENOENT" ||
       JSON.parse(data).length === 0 ||
-      !JSON.parse(data)
+      !JSON.parse(data) ||
+      data.toString("hex") === "0a"
     ) {
       console.log(
         "You dont have task yet! Redirect to Home page in 3 seconds...",

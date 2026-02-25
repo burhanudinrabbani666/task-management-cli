@@ -55,17 +55,12 @@ export function handleAnswer(answer) {
   }
 
   // // 8. Edit data name by id
-  // if (command === "edit-name" || command === "-en") {
-  //   console.clear();
+  if (command === "edit-name" || command === "-en") {
+    editTask(answerArray);
+    return;
+  }
 
-  //   const id = Number(task);
-  //   const dataItem = answerArray.at(2);
-
-  //   editTask("taskTitle", { id, dataItem });
-  //   return;
-  // }
-
-  // // 9. Edit data Status by id
+  // 9. Edit data Status by id
   // if (command === "edit-status" || command === "-es") {
   //   console.clear();
 
