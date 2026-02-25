@@ -2,8 +2,6 @@ import fs from "fs";
 
 import { getDataFromFile } from "../services/getDataFromFile.js";
 import { homePage, rl } from "../../app.js";
-import { renderSpace } from "../utils/config.js";
-import { randomUUID } from "crypto";
 
 export async function addNewTask(answerArray) {
   let taskName = answerArray.slice(1).join(" ").trim();

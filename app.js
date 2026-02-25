@@ -5,6 +5,7 @@ import { renderFeatures } from "./src/home.js";
 import { getDataFromFile } from "./src/services/getDataFromFile.js";
 import { renderTable } from "./src/utils/table.js";
 import { handleAnswer } from "./src/services/handleUserAnswer.js";
+import { DATE_OPTION } from "./src/utils/config.js";
 
 export const rl = readline.createInterface({ input, output });
 
@@ -52,6 +53,7 @@ export async function homePage() {
     // render if data already exist
     const taskData = JSON.parse(data);
 
+    console.log(new Date().toLocaleString("en-UK", DATE_OPTION), "\n");
     renderTable(taskData);
     renderCommand();
 
