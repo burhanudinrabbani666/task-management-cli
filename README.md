@@ -11,6 +11,10 @@ begginer project of: https://roadmap.sh/projects/task-tracker
 ## 🚀 Getting Started
 
 ```bash
+git clone https://github.com/burhanudinrabbani666/task-management-cli.git
+
+npm install
+
 npm start
 ```
 

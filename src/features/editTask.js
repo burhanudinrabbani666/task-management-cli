@@ -43,15 +43,15 @@ export async function editTask(answerArray) {
     if (task === "") {
       if (field === "s") {
         task = (await rl.question("New Status (w/l): ")).trim();
+
+        if (task !== "w" && task !== "l") {
+          redirectToHomePage("Input Should be 'w' OR 'l'");
+          return;
+        }
       }
       if (field === "tn") {
         task = (await rl.question("New task name: ")).trim();
       }
-    }
-
-    if (task !== "w" && task !== "l") {
-      redirectToHomePage("Input Should be 'w' OR 'l'");
-      return;
     }
 
     if (task && field === "s") {
