@@ -41,7 +41,19 @@ export async function homePage() {
         new Date().toLocaleString("en-UK", DATE_OPTION),
     );
 
-    if (todayTask.length > 0) renderTable(todayTask);
+    if (todayTask.length > 0) {
+      const todayTaskFilter = todayTask.map((task) => {
+        const taskItem = {
+          id: task.id,
+          Task: task.taskName,
+          status: task.status ? "✅" : "❌",
+        };
+
+        return taskItem;
+      });
+
+      console.table(todayTaskFilter);
+    }
     if (todayTask.length === 0)
       console.log("You dont have task today. Add new one 💪");
 
