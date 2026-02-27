@@ -1,10 +1,6 @@
 import { renderCommand, rl } from "../../app.js";
 import { getDataFromFile } from "../services/getDataFromFile.js";
-import {
-  DATE_OPTION,
-  PADDING_DETAIL,
-  redirectToHomePage,
-} from "../utils/config.js";
+import { DATE_OPTION, redirectToHomePage } from "../utils/config.js";
 
 export async function detailTask(answerArray) {
   let task = answerArray.at(1)?.trim();

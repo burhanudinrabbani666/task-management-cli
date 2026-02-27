@@ -1,7 +1,6 @@
-import { renderTable } from "../utils/table.js";
 import { renderCommand } from "../../app.js";
 import { getDataFromFile } from "../services/getDataFromFile.js";
-import { redirectToHomePage } from "../utils/config.js";
+import { DATE_OPTION, redirectToHomePage } from "../utils/config.js";
 
 export async function viewTaskData(answerArray) {
   const task = answerArray.at(1);
@@ -31,7 +30,24 @@ export async function viewTaskData(answerArray) {
       tasksToRender = taskData.filter((task) => task.status === false);
     }
 
-    renderTable(tasksToRender);
+    tasksToRender = tasksToRender.map((task) => {
+      const taskItem = {
+        Id: task.id,
+        Task: task.taskName,
+        Status: task.status ? "✅" : "❌",
+        Created_At: new Date(task.createdAt).toLocaleString(
+          "en-US",
+          DATE_OPTION,
+        ),
+        Ureated_At: task.updatedAt
+          ? new Date(task.updatedAt).toLocaleString("en-US", DATE_OPTION)
+          : "---",
+      };
+
+      return taskItem;
+    });
+
+    console.table(tasksToRender);
     renderCommand();
   });
 }

@@ -2,7 +2,6 @@ import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 
 import { getDataFromFile } from "./src/services/getDataFromFile.js";
-import { renderTable } from "./src/utils/table.js";
 import { handleAnswer } from "./src/services/handleUserAnswer.js";
 import { DATE_OPTION } from "./src/utils/config.js";
 
