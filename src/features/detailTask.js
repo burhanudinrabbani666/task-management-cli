@@ -25,31 +25,26 @@ export async function detailTask(answerArray) {
 
     const tasksData = JSON.parse(data);
 
-    const taskToRender = tasksData.find(
+    const searchTaskById = tasksData.find(
       (taskItem) => taskItem.id === task.trim(),
     );
 
-    if (!taskToRender) {
+    if (!searchTaskById) {
       redirectToHomePage("Task not found!");
       return;
     }
 
-    const { id, taskName, status, createdAt, updatedAt } = taskToRender;
+    const { id, taskName, status, createdAt, updatedAt } = searchTaskById;
 
-    console.log(`${"ID".padEnd(PADDING_DETAIL, " ")}: `, id);
-    console.log(`${"Task name".padEnd(PADDING_DETAIL, " ")}: `, taskName);
-    console.log(
-      `${"status".padEnd(PADDING_DETAIL, " ")}: `,
-      status ? "✅ Completed" : "❌ Not Completed ",
-    );
-    console.log(
-      `${"Created at".padEnd(PADDING_DETAIL, " ")}: `,
-      new Date(createdAt).toLocaleString("en-UK", DATE_OPTION),
-    );
-    console.log(
-      `${"Updated at".padEnd(PADDING_DETAIL, " ")}: `,
-      new Date(updatedAt).toLocaleString("en-UK", DATE_OPTION),
-    );
+    const taskToRender = {
+      Id: id,
+      Task: taskName,
+      status: status ? "✅ Completed" : "❌ Not Completed",
+      Created_At: new Date(createdAt).toLocaleString("en-Us", DATE_OPTION),
+      Updated_At: new Date(updatedAt).toLocaleString("en-Us", DATE_OPTION),
+    };
+
+    console.table(taskToRender);
 
     renderCommand();
   });
